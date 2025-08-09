@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Молчание говорит — психологический ретрит в Армении</title>
+    <meta name="description"
+        content="Восьмидневный ретрит в Армении: психологические и телесные практики, медитации, хайкинг, баня, творчество." />
+    <style>
+        :root {
+            --bg: #f5f2ed;
+            /* тёплый бежевый */
+            --ink: #3a2d26;
+            /* тёмно-коричневый для заголовков */
+            --text: #544b46;
+            /* основной текст */
+            --muted: #7b6f67;
+            /* вторичный текст */
+            --sand: #d9c8b6;
+            /* линии/карточки */
+            --accent: #9a6f3a;
+            /* кнопки */
+            --accent-ink: #fff;
+            --sky: #a9c0d6;
+            /* вариант фона как небо */
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            color: inherit
+        }
+
+        /* Шапка */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: saturate(1.2) blur(8px);
+            background: color-mix(in srgb, var(--bg) 85%, #fff 15%);
+            border-bottom: 1px solid color-mix(in srgb, var(--sand) 60%, #0000 40%);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0
+        }
+
+        .brand__logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), #c5975e);
+        }
+
+        .brand__name {
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--ink)
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .nav__links a {
+            padding: 10px 6px;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .nav__cta {
+            padding: 10px 16px;
+            background: var(--accent);
+            color: var(--accent-ink);
+            border-radius: 12px;
+            text-decoration: none;
+        }
+
+        /* Герой */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            color: #fff;
+            min-height: 68vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            background: #a97c4f;
+            /* запасной цвет */
+            /* Замените URL на ваш фон для лендинга без текста */
+            background-image: linear-gradient(to top, rgba(0, 0, 0, .45), rgba(0, 0, 0, .15)), url('assets/hero-autumn.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(32px, 6vw, 56px);
+            letter-spacing: 0.02em
+        }
+
+        .hero p {
+            margin: 0 0 22px;
+            font-size: clamp(16px, 2.2vw, 20px)
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600
+        }
+
+        .cta svg {
+            width: 18px;
+            height: 18px
+        }
+
+        /* Секции */
+        section {
+            padding: 60px 0
+        }
+
+        h2 {
+            color: var(--ink);
+            font-size: clamp(24px, 4vw, 36px);
+            margin: 0 0 16px
+        }
+
+        .lead {
+            color: var(--muted);
+            margin-bottom: 28px
+        }
+
+        /* Грид карточек */
+        .grid {
+            display: grid;
+            gap: 20px
+        }
+
+        @media (min-width:768px) {
+            .grid.cols-3 {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        @media (min-width:768px) {
+            .grid.cols-2 {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid color-mix(in srgb, var(--sand) 60%, #0000 40%);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .04);
+        }
+
+        .icon {
+            width: 28px;
+            height: 28px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 10px;
+            background: color-mix(in srgb, var(--accent) 20%, #fff 80%);
+            margin-bottom: 8px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        /* Блок с фоном-небом */
+        .sky {
+            background: linear-gradient(180deg, var(--sky), color-mix(in srgb, var(--bg) 70%, #fff 30%));
+        }
+
+        .sky .card {
+            background: color-mix(in srgb, #ffffff 80%, var(--bg) 20%)
+        }
+
+        /* Таймлайн / программа */
+        .timeline {
+            position: relative;
+            margin-top: 20px
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--sand)
+        }
+
+        .step {
+            position: relative;
+            padding-left: 44px;
+            margin: 18px 0
+        }
+
+        .step::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%
+        }
+
+        /* Локация с большим изображением */
+        .location {
+            background-image: linear-gradient(to top, rgba(0, 0, 0, .35), rgba(0, 0, 0, .1)), url('assets/valley-sky.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            border-radius: 18px;
+            padding: 40px;
+            min-height: 320px;
+            display: flex;
+            align-items: end
+        }
+
+        /* Стоимость */
+        .price {
+            font-size: clamp(26px, 4vw, 34px);
+            color: var(--ink);
+            font-weight: 700
+        }
+
+        .pill {
+            display: inline-block;
+            border-radius: 999px;
+            padding: 6px 12px;
+            background: color-mix(in srgb, var(--accent) 12%, #fff 88%);
+        }
+
+        /* Футер */
+        footer {
+            padding: 40px 0 60px;
+            background: #4d2a08;
+            color: var(--muted)
+        }
+
+        .small {
+            font-size: 14px
+        }
+
+        #apply {
+            background-image: linear-gradient(to top, rgba(0, 0, 0, .4), rgba(0, 0, 0, .2)), url('bg1.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Навигация -->
+    <nav class="nav">
+        <div class="container row">
+            <a href="#top" class="brand" aria-label="На главную">
+                <span class="brand__logo" aria-hidden="true"></span>
+                <span class="brand__name">Молчание говорит</span>
+            </a>
+            <div class="nav__links small">
+                <a href="#about">О ретрите</a>
+                <a href="#who">Кому подойдёт</a>
+                <a href="#program">Программа</a>
+                <a href="#workshops">Мастер‑классы</a>
+                <a href="#location">Локация</a>
+                <a href="#price" class="pill">Стоимость</a>
+                <a href="#apply" class="nav__cta">Оставить заявку</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой -->
+    <header id="top" class="hero">
+        <div class="container">
+            <h1>Психологический ретрит в Армении</h1>
+            <p>8 дней тишины, природы и бережной работы с собой. Осень 2025 · группа до 10 человек</p>
+            <a class="cta" href="#apply" aria-label="Перейти к анкете">
+                <!-- иконка-стрелка -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+                Оставить заявку
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- О ретрите -->
+        <section id="about">
+            <div class="container">
+                <h2>О ретрите</h2>
+                <p class="lead">Иногда нужно просто остановиться. Мы создаём пространство, где можно выдохнуть, быть с
+                    собой и бережно соприкоснуться с тем, что важно.</p>
+                <div class="grid cols-3">
+                    <div class="card">
+                        <div class="icon">🧘</div><strong>Практики</strong>
+                        <p class="muted">Психологические и телесные занятия, медитации, вечерние круги.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🥾</div><strong>Природа</strong>
+                        <p class="muted">Хайкинг и прогулки в тишине по горным тропам.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🔥</div><strong>Забота</strong>
+                        <p class="muted">Баня, вкусная еда и тёплое сообщество.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Кому подойдёт -->
+        <section id="who" class="sky">
+            <div class="container">
+                <h2>Кому подойдёт</h2>
+                <div class="grid cols-2">
+                    <div class="card"><strong>Тому, кто устал от темпа города</strong>
+                        <p class="muted">Хочется тишины, паузы, ясности.</p>
+                    </div>
+                    <div class="card"><strong>Тому, кому нужны перемены</strong>
+                        <p class="muted">Новый этап, расставание, смена работы, переезд.</p>
+                    </div>
+                    <div class="card"><strong>Тому, кто впервые на ретрите</strong>
+                        <p class="muted">Мягкий формат без давления и «нужно».</p>
+                    </div>
+                    <div class="card"><strong>Тому, кто уже в терапии</strong>
+                        <p class="muted">Поддержка и углубление личного процесса.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Программа -->
+        <section id="program">
+            <div class="container">
+                <h2>Программа (5 дней)</h2>
+                <div class="timeline">
+                    <div class="step"><strong>День 1</strong> — приезд, знакомство, круг намерений</div>
+                    <div class="step"><strong>День 2</strong> — тело и чувства, телесные практики, хайкинг в тишине
+                    </div>
+                    <div class="step"><strong>День 3</strong> — работа с прошлым, баня и ритуал отпускания</div>
+                    <div class="step"><strong>День 4</strong> — новые опоры, арт‑терапия, вечер у костра</div>
+                    <div class="step"><strong>День 5</strong> — создание свечи и прогулка до водопада</div>
+                    <div class="step"><strong>День 6</strong> — одушевляющая поездка в горы, катание на лошадях</div>
+                    <div class="step"><strong>День 7</strong> — знакомство с Севаном, вечер у костра</div>
+                    <div class="step"><strong>День 8</strong> — практика благодарности, завершение, отъезд</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Мастер-классы -->
+        <section id="workshops" class="sky">
+            <div class="container">
+                <h2>Мастер‑классы (без псих. уклона)</h2>
+                <div class="grid cols-2">
+                    <div class="card">
+                        <div class="icon">🍃</div><strong>Авторский травяной чай</strong>
+                        <p class="muted">Собираем и завариваем собственные смеси. Дегустация и баночки с собой.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🕯️</div><strong>Эко‑свечи</strong>
+                        <p class="muted">Натуральный воск, сухоцветы, уютный вечер.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🍞</div><strong>Кулинарная встреча</strong>
+                        <p class="muted">Готовим локальные блюда вместе и ужинаем в кругу.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🍁</div><strong>Ботаническая печать</strong>
+                        <p class="muted">Эко‑принт на ткани или бумаге.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Локация -->
+        <section id="location">
+            <div class="container">
+                <h2>Где мы будем</h2>
+                <div class="location">
+                    <div>
+                        <p><strong>Горы Армении.</strong> Уютный дом, 2‑местные комнаты, терраса с видом на долину,
+                            домашняя еда. Баня и костёр по вечерам.</p>
+                        <p class="muted small">*Замените фон секции на своё фото: assets/valley-sky.jpg*</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Стоимость -->
+        <section id="price" class="sky">
+            <div class="container">
+                <h2>Стоимость и что включено</h2>
+                <div class="grid cols-2">
+                    <div class="card">
+                        <div class="price">от 65 000 ₽</div>
+                        <p class="muted">за 8 дней · всё включено, кроме перелёта</p>
+                    </div>
+                    <div class="card">
+                        <ul>
+                            <li>Проживание 7 ночей</li>
+                            <li>Питание (3 раза в день и перекус)</li>
+                            <li>Все практики и мастер‑классы</li>
+                            <li>Трансферы внутри программы</li>
+                            <li>Баня и расходные материалы</li>
+                            <li>Медицинская страховка путешественника</li>
+                            <li>Помощь в подборе авиабилетов</li>
+                            <li>Консультация по сбору в пушествие</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="price">Дополнительные расходы</div>
+                        <p class="muted">не включено</p>
+                    </div>
+                    <div class="card">
+                        <ul>
+                            <li>Перелет до Еревана и обратно</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Анкета -->
+        <section id="apply">
+            <div class="container">
+                <h2>Оставить заявку</h2>
+                <p class="lead">Заполни короткую форму — мы свяжемся и ответим на вопросы.</p>
+                <form class="card" onsubmit="event.preventDefault(); alert('Спасибо! Мы с вами свяжемся.');">
+                    <div class="grid cols-2">
+                        <label>
+                            Имя<br />
+                            <input type="text" name="name" required
+                                style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);">
+                        </label>
+                        <label>
+                            Телефон<br />
+                            <input type="text" name="contact" required
+                                style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);">
+                        </label>
+                        <label>
+                            Telegram<br />
+                            <input type="text" name="contact" required
+                                style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);">
+                        </label>
+                    </div>
+                    <label style="display:block; margin-top:12px;">
+                        Сообщение (по желанию)<br />
+                        <textarea name="msg" rows="4"
+                            style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);"></textarea>
+                    </label>
+                    <div style="display:flex; gap:12px; align-items:center; margin-top:16px;">
+                        <button class="cta" type="submit">Отправить</button>
+                        <span class="muted small">Или напишите нам: <strong>@molchaniegovorit</strong></span>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container row">
+            <div class="small">© 2025 Молчание говорит · Все права защищены</div>
+            <div class="small">Email: hello@example.com</div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
