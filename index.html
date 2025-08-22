@@ -426,6 +426,12 @@
 
         /* мобильное меню (скрыто по умолчанию) */
         @media (max-width: 1100px) {
+            .nav.nav--open {
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+                background: var(--bg);
+            }
+
             .nav .row {
                 gap: 8px;
             }
@@ -434,27 +440,45 @@
                 display: block;
             }
 
-            /* превращаем список ссылок в выезжающую панель */
+            /* Панель меню: отдельный слой и гарантированный фон */
             .nav__links {
                 position: fixed;
-                left: 0;
-                right: 0;
-                top: var(--nav-h);
-                bottom: 0;
-                background: color-mix(in srgb, var(--bg) 92%, #fff 8%);
-                backdrop-filter: saturate(1.2) blur(8px);
-                border-top: 1px solid color-mix(in srgb, var(--sand) 60%, #0000 40%);
-                display: grid;
-                gap: 6px;
-                padding: 16px 20px;
+                inset: var(--nav-h) 0 0 0;
+                background-color: #fff;
+                z-index: 1001;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                /* центруем пункты вертикально */
+                align-items: center;
+                /* центруем горизонтально */
+                padding: 20px;
+                gap: 12px;
+                /* равномерный интервал между ссылками */
+
                 transform: translateY(-12px);
                 opacity: 0;
                 pointer-events: none;
                 transition: transform .25s ease, opacity .25s ease;
             }
 
+
             .nav__links a {
-                padding: 12px 8px;
+                display: block;
+                border-bottom: 1px solid rgba(0, 0, 0, .05);
+                /* лёгкий разделитель */
+                font-size: 20px;
+                /* читаемый размер */
+                padding: 8px 0;
+                text-align: center;
+                width: 100%;
+                /* чтобы клик было легко поймать */
+            }
+
+            .nav__links a:last-child {
+                border-bottom: none;
+                /* у последнего не нужен */
             }
 
             /* когда меню открыто */
@@ -480,6 +504,22 @@
             /* блокируем прокрутку страницы, когда меню открыто */
             body.menu-open {
                 overflow: hidden;
+            }
+
+            .nav__cta {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(100% - 40px);
+                /* небольшие поля по краям */
+                max-width: 320px;
+                text-align: center;
+                padding: 14px;
+                border-radius: 12px;
+                background: var(--accent);
+                color: #fff;
+                font-weight: 600;
             }
         }
     </style>
