@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Молчание говорит — психологический ретрит в Армении</title>
+    <meta name="description"
+        content="Восьмидневный ретрит в Армении: психологические и телесные практики, медитации, хайкинг, баня, творчество." />
+    <style>
+        main section {
+            opacity: 0;
+            transform: translateY(40px);
+            pointer-events: none;
+            /* чтобы не кликалось до появления */
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        main section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        :root {
+            --bg: #f5f2ed;
+            /* тёплый бежевый */
+            --ink: #3a2d26;
+            /* тёмно-коричневый для заголовков */
+            --text: #544b46;
+            /* основной текст */
+            --muted: #7b6f67;
+            /* вторичный текст */
+            --sand: #d9c8b6;
+            /* линии/карточки */
+            --accent: #746b5f;
+            /* кнопки */
+            --accent-ink: #fff;
+            --sky: #a9c0d6;
+            /* вариант фона как небо */
+            --nav-h: 64px;
+            /* переменная высоты шапки (JS выставит точное значение) */
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            color: inherit
+        }
+
+        /* Шапка */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            -webkit-backdrop-filter: saturate(1.2) blur(8px);
+            /*crossbrauser for safari*/
+            backdrop-filter: saturate(1.2) blur(8px);
+            background: color-mix(in srgb, var(--bg) 85%, #fff 15%);
+            border-bottom: 1px solid color-mix(in srgb, var(--sand) 60%, #0000 40%);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0
+        }
+
+        .brand__logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), #c5975e);
+        }
+
+        .brand__name {
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--ink)
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .nav__links a {
+            padding: 10px 6px;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .nav__links a.nav__cta,
+        .nav__links a.nav__cta:visited {
+            color: #fff;
+            /* белый текст */
+        }
+
+        .nav__cta {
+            padding: 10px 16px;
+            background: var(--accent);
+            color: var(--accent-ink);
+            border-radius: 12px;
+            text-decoration: none;
+        }
+
+        /* Герой */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            color: #fff;
+            min-height: 68vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            /*background: #a97c4f;*/
+            /* запасной цвет */
+            /* Замените URL на ваш фон для лендинга без текста */
+            /*background-image: linear-gradient(to top, rgba(0, 0, 0, .45), rgba(0, 0, 0, .15)), url('assets/hero-autumn.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;*/
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(32px, 6vw, 56px);
+            letter-spacing: 0.02em
+        }
+
+        .hero p {
+            margin: 0 0 22px;
+            font-size: clamp(16px, 2.2vw, 20px)
+        }
+
+        .h2white {
+            color: #fff;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600
+        }
+
+        .bgmountain {
+            background-image: linear-gradient(to top, rgba(0, 0, 0, .45), rgba(0, 0, 0, .15)), url('backgrounds/bg3.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .cta svg {
+            width: 18px;
+            height: 18px
+        }
+
+        /* Секции */
+        section {
+            padding: 60px 0;
+            scroll-margin-top: 80px
+                /*while scrolling the header does not cover the section title*/
+        }
+
+        h2 {
+            color: var(--ink);
+            font-size: clamp(24px, 4vw, 36px);
+            margin: 0 0 16px
+        }
+
+        .lead {
+            color: var(--muted);
+            margin-bottom: 28px
+        }
+
+        /* Грид карточек */
+        .grid {
+            display: grid;
+            gap: 20px
+        }
+
+        @media (min-width:768px) {
+            .grid.cols-3 {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        @media (min-width:768px) {
+            .grid.cols-2 {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid color-mix(in srgb, var(--sand) 60%, #0000 40%);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .04);
+        }
+
+        .icon {
+            width: 28px;
+            height: 28px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 10px;
+            background: color-mix(in srgb, var(--accent) 20%, #fff 80%);
+            margin-bottom: 8px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .pwhite {
+            color: rgb(223, 222, 221);
+        }
+
+        /* Блок с фоном-небом 
+        .sky {
+            background: linear-gradient(180deg, var(--sky), color-mix(in srgb, var(--bg) 70%, #fff 30%));
+        }
+
+        .sky .card {
+            background: color-mix(in srgb, #ffffff 80%, var(--bg) 20%)
+        }*/
+
+        /* Таймлайн / программа */
+        .timeline {
+            position: relative;
+            margin-top: 20px
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--sand)
+        }
+
+        .step {
+            position: relative;
+            padding-left: 44px;
+            margin: 18px 0
+        }
+
+        .step::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%
+        }
+
+        /* Локация с большим изображением */
+        .location {
+            background-image: linear-gradient(to top, rgba(0, 0, 0, .35), rgba(0, 0, 0, .1)), url('backgrounds/bg2.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            border-radius: 18px;
+            padding: 40px;
+            min-height: 320px;
+            display: flex;
+            align-items: end
+        }
+
+        /* Стоимость */
+        .price {
+            font-size: clamp(26px, 4vw, 34px);
+            color: var(--ink);
+            font-weight: 700
+        }
+
+        .pill {
+            display: inline-block;
+            border-radius: 999px;
+            padding: 6px 12px;
+            /*background: color-mix(in srgb, var(--accent) 12%, #fff 88%);*/
+        }
+
+        /* Футер */
+        footer {
+            padding: 40px 0 60px;
+            background: #362c1f;
+            color: var(--muted)
+        }
+
+        .small {
+            font-size: 14px
+        }
+
+        #apply {
+            background-image: linear-gradient(to top, rgba(0, 0, 0, .4), rgba(0, 0, 0, .2)), url('backgrounds/bg1.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /*styles for errors*/
+        .field {
+            display: block;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--sand);
+            outline: none;
+        }
+
+        .field.invalid input,
+        .field.invalid select,
+        .field.invalid textarea {
+            border-color: #e24646;
+            box-shadow: 0 0 0 2px rgba(226, 70, 70, .08);
+        }
+
+        /* 1) Точный селектор для заголовка поля */
+        .field>span:first-child {
+            display: block;
+            margin-bottom: 8px;
+            /* отступ между “Телефон *” и вводом */
+        }
+
+        /* 2) Гарантируем отступ для любых контролов сразу под заголовком */
+        .field> :is(input, select, textarea, .phone-row) {
+            /* если нужно, можно использовать только это правило и не трогать span */
+            margin-top: 8px;
+        }
+
+        .error-text {
+            display: block;
+            color: #e24646;
+            font-size: 13px;
+            margin-top: 6px;
+            min-height: 1em;
+        }
+
+        /* телефон: код страны + локальный номер */
+        .phone-row {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 140px 1fr;
+        }
+
+        @media (max-width: 520px) {
+            .phone-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* кнопка гамбургера */
+        .nav__toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            border-radius: 8px;
+            touch-action: manipulation;
+            /* быстрее тап без delay */
+        }
+
+        .nav__toggle:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .nav__toggle span {
+            display: block;
+            height: 2px;
+            margin: 6px 0;
+            background: var(--ink);
+            transition: transform .25s ease, opacity .2s ease;
+        }
+
+        /* Делаем фон и hero отдельными GPU-слоями, чтобы не дёргались при оверлее меню */
+        .bgmountain,
+        .hero {
+            transform: translateZ(0);
+            /* запускаем композитинг */
+            -webkit-transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+            contain: paint;
+            /* отсекаем лишние перерисовки */
+            background-attachment: scroll;
+            /* на всякий — вдруг кто-то поставил fixed */
+        }
+
+        /* Само меню тоже на своём слое */
+        .nav__links {
+            will-change: auto;
+            backface-visibility: hidden;
+        }
+
+        /* мобильное меню (скрыто по умолчанию) */
+        /* ===== Мобильное меню: быстрое и плавное ===== */
+        @media (max-width:1100px) {
+            .nav .row {
+                gap: 8px;
+            }
+
+            .nav__toggle {
+                display: block;
+            }
+
+            /* Шапка без блюра во время открытого меню (ускоряет отрисовку) */
+            .nav.nav--open {
+                -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+                background: #fff !important;
+                /* сплошной фон вместо полупрозрачных миксов */
+                box-shadow: none;
+                /* тени иногда триггерят дорогие компоновки */
+            }
+
+            /* Панель меню как отдельный композитный слой */
+            .nav__links {
+                position: fixed;
+                top: var(--nav-h, 64px);
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 1001;
+
+                background: #fff;
+                /* сплошной фон — видно всегда */
+                -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+
+                /* Анимируем ТОЛЬКО transform/opacity (дёшево) */
+                transform: translate3d(0, -100%, 0);
+                opacity: 0;
+                pointer-events: none;
+
+                will-change: transform, opacity;
+                backface-visibility: hidden;
+                contain: paint;
+
+                transition: transform .2s ease-out, opacity .2s ease-out;
+            }
+
+            .nav--open .nav__links {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Пункты меню: ровные интервалы без gap (совместимо со старыми Safari) */
+            .nav__links a {
+                display: block;
+                width: 100%;
+                max-width: 440px;
+                text-align: center;
+                font-size: 18px;
+                padding: 10px 0;
+                margin: 6px 0;
+                border-bottom: 1px solid rgba(0, 0, 0, .06);
+            }
+
+            .nav__links a:last-child {
+                border-bottom: none;
+            }
+
+            /* Иконка-гамбургер → крестик */
+            .nav--open .nav__toggle span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .nav--open .nav__toggle span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .nav--open .nav__toggle span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            /* Блокируем прокрутку страницы при открытом меню */
+            body.menu-open {
+                overflow: hidden;
+            }
+        }
+
+        /* Если пользователь просит меньше анимаций — уважим */
+        @media (prefers-reduced-motion: reduce) {
+            .nav__links {
+                transition: none !important;
+            }
+        }
+
+        /* На случай отсутствия поддержки backdrop-filter сразу задаём фон шапке */
+        @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+            .nav {
+                background: rgba(245, 242, 237, .98);
+            }
+        }
+
+        /* Явный z-index шапки, но ниже панели меню */
+        .nav {
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Навигация -->
+    <nav class="nav">
+        <div class="container row">
+            <a href="#top" class="brand" aria-label="На главную">
+                <span class="brand__logo" aria-hidden="true"><img src="icons/icon_nav.png" alt=""></span>
+                <span class="brand__name">Молчание говорит</span>
+            </a>
+
+            <!-- кнопка-гамбургер -->
+            <button class="nav__toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
+            </button>
+
+            <!-- меню -->
+            <div id="nav-links" class="nav__links small" role="menu">
+                <a href="#about" role="menuitem">О ретрите</a>
+                <a href="#who" role="menuitem">Кому подойдёт</a>
+                <a href="#program" role="menuitem">Программа</a>
+                <a href="#workshops" role="menuitem">Мастер-классы</a>
+                <a href="#location" role="menuitem">Локация</a>
+                <a href="#price" class="pill" role="menuitem">Стоимость</a>
+                <a href="#apply" class="nav__cta" role="menuitem">Хочу в тур</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bgmountain">
+        <!-- Герой -->
+        <header id="top" class="hero">
+            <div class="container">
+                <h1>Терапевтический тур-путешествие "Молчание говорит"</h1>
+                <p>превращаем тур из бега по достопримечательностям в глубокое путешествие к себе</p>
+                <a class="cta" href="#apply" aria-label="Перейти к анкете">
+                    <!-- иконка-стрелка -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                    Хочу в тур
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <!-- О ретрите -->
+            <section id="about">
+                <div class="container">
+                    <h2 class="h2white">О туре</h2>
+                    <p class="pwhite">Психологический тур для взрослых, для тех, кто хочет замедлиться, «переварить»
+                        впечатления и вернуться домой не просто с
+                        фотографиями, а с настоящим чувством обновления и ясности.</p>
+                    <div class="grid cols-3">
+                        <div class="card">
+                            <div class="icon">🧘</div><strong> Практики</strong>
+                            <p class="muted">Психологические и телесные занятия, медитации, вечерние круги.</p>
+                        </div>
+                        <div class="card">
+                            <div class="icon">🥾</div><strong> Природа</strong>
+                            <p class="muted">Хайкинг и прогулки в тишине по горным тропам.</p>
+                        </div>
+                        <div class="card">
+                            <div class="icon">🔥</div><strong> Забота</strong>
+                            <p class="muted">Баня, вкусная еда и тёплое сообщество.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Что такое «Молчание говорит?» -->
+            <section id="what-is">
+                <div class="container">
+                    <h2 class="h2white">Что такое «Молчание говорит»?</h2>
+                    <div class="card">
+                        <p class="muted" style="margin-top:0;">«Молчание говорит» — это 5 шагов трансформации через
+                            путешествие:</p>
+                        <ol style="padding-left:18px; margin: 14px 0 0;">
+                            <li style="margin:10px 0;">
+                                <strong>ПРИСЛУШАТЬСЯ к себе до поездки.</strong><br>
+                                Мы мягко поможем вам разобрать ваш запрос на это путешествие. Поговорим о том, не «что
+                                посмотреть»,
+                                а «что почувствовать».
+                            </li>
+                            <li style="margin:10px 0;">
+                                <strong>ПОГРУЗИТЬСЯ в ритм Армении без суеты.</strong><br>
+                                Позволим древности и природе говорить с нами.
+                            </li>
+                            <li style="margin:10px 0;">
+                                <strong>ПРОЖИТЬ эмоции безопасно.</strong><br>
+                                Иногда от тишины и красоты накатывает много разного — грусть, радость, освобождение. Мы
+                                будем рядом
+                                друг с другом. Будем опорой.
+                            </li>
+                            <li style="margin:10px 0;">
+                                <strong>СОЗДАТЬ свой личный артефакт.</strong><br>
+                                Вашу «Карту чувств» и дневник путешествия — не сувенир, а частичку состояния, которую
+                                можно забрать
+                                с собой.
+                            </li>
+                            <li style="margin:10px 0;">
+                                <strong>ЗАБРАТЬ этот опыт с собой.</strong><br>
+                                Мы будем рядом и после возвращения. Подскажем, как сохранить ощущение тишины и ясности в
+                                повседневной жизни.
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Почему с нами иначе? -->
+            <section id="why-us">
+                <div class="container">
+                    <h2 class="h2white">Почему с нами иначе?</h2>
+                    <div class="grid cols-2">
+                        <div class="card">
+                            <div class="icon">💚</div>
+                            <strong>Мы заботимся о вас</strong>
+                            <p class="muted">Забота начинается ещё до старта — в переписке, подготовке маршрута, ответах
+                                на вопросы.
+                                И продолжается после — мы остаёмся на связи, чтобы поддержать и после путешествия.</p>
+                        </div>
+                        <div class="card">
+                            <div class="icon">🌀</div>
+                            <strong>Помогаем «переварить» опыт</strong>
+                            <p class="muted">Сильные впечатления, как и эмоции, нуждаются в интеграции. Психологи
+                                помогают осмыслить
+                                и встроить опыт так, чтобы он стал опорой, а не просто красивым воспоминанием.</p>
+                        </div>
+                        <div class="card">
+                            <div class="icon">🤝</div>
+                            <strong>Безопасно быть собой</strong>
+                            <p class="muted">У нас нет масок и оценок. В группе можно быть разным: задавать вопросы,
+                                делиться или
+                                молчать. Пространство доверия, уязвимости и принятия.</p>
+                        </div>
+                        <div class="card">
+                            <div class="icon">⚖️</div>
+                            <strong>Баланс — наш принцип</strong>
+                            <p class="muted">Соединяем экскурсии и приключения — с психологическими практиками; личное
+                                время — с
+                                ресурсом группы; активность — с глубоким отдыхом.</p>
+                        </div>
+                    </div>
+                    <p class="pwhite small" style="margin-top:16px;">
+                        Мы существуем, потому что верим: настоящее путешествие должно менять не только ленту в
+                        инстаграме, но и
+                        душу.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Кому подойдёт -->
+            <section id="who" class="sky">
+                <div class="container">
+                    <h2 class="h2white">Кому подойдёт</h2>
+                    <div class="grid cols-2">
+                        <div class="card"><strong>Тем, кто устал от ритма города</strong>
+                            <p class="muted">— хотите выдохнуть, замедлиться и восстановить силы</p>
+                        </div>
+                        <div class="card"><strong>Тем, кто ищет глубину</strong>
+                            <p class="muted">— не просто фото с поездки, а внутренние открытия и ясность</p>
+                        </div>
+                        <div class="card"><strong>Тем, кто ценит доверие и атмосферу</strong>
+                            <p class="muted">— быть собой в кругу людей, где безопасно делиться или молчать</p>
+                        </div>
+                        <div class="card"><strong>Тем, кому нужны перемены</strong>
+                            <p class="muted">— нужны силы на новый этап, расставание, смену работы, переезд</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    </div>
+    <!-- Программа -->
+    <section id="program">
+        <div class="container">
+            <h2>Программа (6 дней)</h2>
+            <p>Про тур: пять дней, чтобы вырваться из городской рутины и оказаться среди озер, гор и коров. Мы в первую
+                половину дня
+                будем погружаться в терапевтическую работу и рядом друг с другом открывать себя, а на закате поедем на
+                гору Димац,
+                заглянем в знаменитые монастыри и на водопады, соберёмся у озера на пикник и попробуем легендарную гату
+                с бри. Эта
+                поездка, где привычная жизнь ставится на паузу, а главное - появляются новые друзья и вдохновение на
+                новый этап жизни.
+
+                Продолжительность : 5 дней
+                Локация: горы Армении</p>
+
+            <div class="timeline">
+                <div class="step"><strong>День 1</strong> — выезжаем в 14:00 из центра Еревана на автобусе в наш
+                    коттедж. В дороге знакомимся и ловим настроение путешествия.
+                    Заселимся в коттедж, познакомимся, откроем дневник путешественника, расслабимся, поделимся целями на
+                    путешествие и
+                    поиграем в игры в беседке на берегу реки</div>
+                <div class="step"><strong>День 2</strong> — утро начнём с телесных практик, завтрака и настроя на день.
+                    Дальше - поговорим в терапевтической группе о своих
+                    потребностях и заполнения «Карты эмоций». После обеда едем к осеннему озеру Парц, где нас ждёт
+                    хайкинг и пикник с
+                    разговорами и мастер-классом от психолога
+                </div>
+                <div class="step"><strong>День 3</strong> — с утра нас ждёт зарядка и завтрак. Затем групповая практика
+                    - коснемся наших чувств, их проживания и выражения. После
+                    поедем на джипах на гору Димац - к облакам и батутам. Насладимся потрясающими осенними видами гор и
+                    поиграем в волейбол
+                    на вершине на закате. Вечером - отдых и разговоры</div>
+                <div class="step"><strong>День 4</strong> — разбудим тело с помощью самомассажа и вкусного завтрака.
+                    После них начнём исследовать в безопасном пространстве свои
+                    границы и научимся говорить о них другому. После обеда откроем для себя дух Армении. Нас ждёт
+                    поездка в старейший
+                    монастырь Арагцин и хайкинг по тропе скрытого водопада. Вдохнем чистый воздух, послушаем хруст
+                    осенних листьев под
+                    ногами и журчание ручьев. Вечером нас ждёт кулинарный мастер-класс по армянской выпечке и
+                    завариванию чая</div>
+                <div class="step"><strong>День 5</strong> — утро классически начнём с зарядки и завтрака. На
+                    заключительной терапевтической встрече поговорим о ценностях и тому, как они проявляются в нашей
+                    жизни. Дальше -
+                    поездка на армянское «море» Севан и знаменитый манастырь Севанаванк. Узнаем ценности армянского
+                    народа и почувствуем
+                    силу водной стихии. На закате попаримся в бане рядом с Севаном и поужинаем вкуснейшей рыбой сиг
+                </div>
+                <div class="step"><strong>День 6</strong> — финальное утро - день отъезда. Напоследок сделаем утреннюю
+                    практику, соберёмся, наобнимаемся, скажем друг другу
+                    «спасибо» и начнём планировать следующее путешествие</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Мастер-классы -->
+    <section id="workshops" class="sky">
+        <div class="container">
+            <h2>Мастер‑классы</h2>
+            <div class="grid cols-2">
+                <div class="card">
+                    <div class="icon">🍃 </div><strong> Авторский травяной чай</strong>
+                    <p class="muted">Собираем и завариваем собственные смеси. Дегустация и баночки с собой.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🕯️ </div><strong> Эко‑свечи</strong>
+                    <p class="muted">Натуральный воск, сухоцветы, уютный вечер.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🍞 </div><strong> Кулинарная встреча</strong>
+                    <p class="muted">Готовим локальные блюда вместе и ужинаем в кругу.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🍁 </div><strong> Ботаническая печать</strong>
+                    <p class="muted">Эко‑принт на ткани или бумаге.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Локация 
+    <section id="location">
+        <div class="container">
+            <h2>Где мы будем</h2>
+            <div class="location">
+                <div>
+                    <p><strong>Горы Армении.</strong> Уютный дом, 2‑местные комнаты, терраса с видом на долину,
+                        домашняя еда. Баня и костёр по вечерам.</p>
+                    <p class="pwhite small">*Вид из окна может отличаться в зависимости от комнаты в доме</p>
+                </div>
+            </div>
+        </div>
+    </section>-->
+
+    <!-- 🌿 С чем вы вернётесь -->
+    <section id="return">
+        <div class="container">
+            <h2>🌿 С чем вы вернётесь</h2>
+            <div class="grid cols-2">
+                <div class="card">
+                    <p><strong>С ощущением ясности и лёгкости.</strong><br>
+                        Тишина и горы помогут услышать себя и разложить внутри всё по полочкам.</p>
+                </div>
+                <div class="card">
+                    <p><strong>С ресурсом и новыми силами.</strong><br>
+                        Это будет отдых, после которого не нужен отдых.</p>
+                </div>
+                <div class="card">
+                    <p><strong>С поддержкой и теплом.</strong><br>
+                        Уедете не только с номерами телефонов, но и с настоящими друзьями.</p>
+                </div>
+                <div class="card">
+                    <p><strong>С личным артефактом.</strong><br>
+                        Дневник и «Карта чувств» останутся с вами как напоминание о том, что вы нашли в этом пути.</p>
+                </div>
+                <div class="card">
+                    <p><strong>С новыми смыслами.</strong><br>
+                        Путешествие станет отправной точкой — для решений, перемен и вдохновения.</p>
+                </div>
+                <div class="card">
+                    <p><strong>С воспоминаниями о красоте Армении.</strong><br>
+                        Горы, озёра, монастыри и вкус легендарной гаты будут ассоциироваться с моментом внутреннего
+                        поворота.</p>
+                </div>
+            </div>
+            <p class="lead" style="margin-top:20px;">
+                Вы вернётесь домой обновлёнными: с ясной головой, лёгким сердцем и ощущением,
+                что жизнь движется дальше — в правильном направлении.
+            </p>
+        </div>
+    </section>
+
+    <!-- Стоимость -->
+    <section id="price" class="sky">
+        <div class="container">
+            <h2>Стоимость и что включено</h2>
+            <div class="grid cols-2">
+                <div class="card">
+                    <div class="price">от 50 000 ₽</div>
+                    <p class="muted">за 6 дней · всё включено, кроме перелёта</p>
+                </div>
+                <div class="card">
+                    <ul>
+                        <li>Проживание 5 ночей</li>
+                        <li>Питание (3 раза в день и перекус)</li>
+                        <li>Все практики и мастер‑классы</li>
+                        <li>Трансферы внутри программы</li>
+                        <li>Баня и расходные материалы</li>
+                        <li>Медицинская страховка путешественника</li>
+                        <li>Помощь в подборе авиабилетов</li>
+                        <li>Консультация по сбору в путешествие</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="price">Дополнительные расходы</div>
+                    <p class="muted">не включено</p>
+                </div>
+                <div class="card">
+                    <ul>
+                        <li>Перелет до Еревана и обратно</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ответы на вопросы -->
+    <section id="faq" class="sky">
+        <div class="container">
+            <h2>Ответы на вопросы</h2>
+
+            <!-- Проживание -->
+            <div class="card">
+                <h3>🏡 Проживание</h3>
+                <p>Мы будем жить в большом коттедже на 10 человек в селе Техут. Одноместные кровати по 2 человека в
+                    комнате
+                    в одном доме с четырьмя ванными комнатами. У нас будет большая гостиная и большой сад с мангалом и
+                    беседкой.
+                    Из окон открывается осенний вид на горы и реку.</p>
+            </div>
+
+            <!-- Питание -->
+            <div class="card">
+                <h3>🍲 Питание</h3>
+                <p>На протяжении всего тура мы будем пробовать местную кухню. Завтраки, обеды и ужины включены в
+                    стоимость,
+                    готовить мы будем совместно в коттедже.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Анкета -->
+    <section id="apply">
+        <div class="container">
+            <h2>Хочу в тур</h2>
+            <p class="pwhite">Заполни короткую форму — мы свяжемся и ответим на вопросы.</p>
+
+            <form id="apply-form" class="card">
+                <!-- один скрытый token (убрали дубликат) -->
+                <input type="hidden" name="token" value="armenia2025secret">
+
+                <div class="grid cols-2">
+                    <label class="field" id="f-name">
+                        Имя *<br />
+                        <input type="text" name="name" required autocomplete="name"
+                            style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);">
+                        <span class="error-text"></span>
+                    </label>
+                    <label class="field" id="f-phone">
+                        Телефон *<br />
+                        <div class="phone-row" style="margin-top:6px;">
+                            <select name="countryCode" aria-label="Код страны">
+                                <option value="+7">🇷🇺 +7 (Россия)</option>
+                                <option value="+374">🇦🇲 +374 (Армения)</option>
+                                <option value="+380">🇺🇦 +380 (Украина)</option>
+                                <option value="+995">🇬🇪 +995 (Грузия)</option>
+                                <option value="+1">🇺🇸 +1 (США/Канада)</option>
+                                <option value="+44">🇬🇧 +44 (Великобритания)</option>
+                                <option value="+49">🇩🇪 +49 (Германия)</option>
+                            </select>
+                            <input type="text" name="localPhone" required placeholder="9123456789" inputmode="tel"
+                                autocomplete="tel"
+                                style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);">
+                        </div>
+                        <span class="error-text"></span>
+                    </label>
+                    <label class="field" id="f-tg">
+                        Telegram<br />
+                        <input type="text" name="telegram" placeholder="@username или +79123456789" autocomplete="off"
+                            style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);">
+                        <span class="error-text"></span>
+                    </label>
+
+                </div>
+
+                <!-- honeypot от ботов (НЕ заполнять) -->
+                <div style="position:absolute; left:-5000px; top:auto; width:1px; height:1px; overflow:hidden;">
+                    <label>Ваш сайт <input type="text" name="website"></label>
+                </div>
+
+                <label style="display:block; margin-top:12px;">
+                    Сообщение (по желанию)<br />
+                    <textarea name="msg" rows="4"
+                        style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--sand);"></textarea>
+                </label>
+
+                <div style="display:flex; gap:12px; align-items:center; margin-top:16px;">
+                    <button class="cta" type="submit">Отправить</button>
+                    <div><span class="muted small">*Поля, обязательные для заполнения</span><br>
+                        <span class="muted small">Вы также можете написать нам:
+                            <strong>@molchaniegovorit</strong></span>
+                    </div>
+                </div>
+                <div id="apply-status" class="muted small" style="margin-top:10px;"></div>
+            </form>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <div class="container row">
+            <div class="pwhite">© 2025 RETRIP · Молчание говорит · Все права защищены</div>
+            <div class="pwhite">Email: hello@example.com</div>
+        </div>
+    </footer>
+
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzH1BRqYa88y-2zl1dPUApDJECxxBqQiw_7EyStNuEs3tcCYHUlKaATIE2bBGUeJr-t/exec';
+
+        function setFieldError(fieldEl, msg) {
+            fieldEl.classList.toggle('invalid', !!msg);
+            const span = fieldEl.querySelector('.error-text');
+            if (span) span.textContent = msg || '';
+            const input = fieldEl.querySelector('input,select,textarea');
+            if (msg && input) input.setAttribute('aria-invalid', 'true'); else if (input) input.removeAttribute('aria-invalid');
+        }
+        function clearAllErrors(form) {
+            form.querySelectorAll('.field').forEach(f => setFieldError(f, ''));
+        }
+
+        // E.164: + и 10–15 цифр
+        function validateAndBuildPhone(countryCode, local) {
+            const cc = String(countryCode || '').trim();
+            let loc = String(local || '').trim().replace(/[^\d]/g, '');
+            if (!loc) return { ok: false, value: '', error: 'Укажите номер' };
+            const full = cc + loc;
+            const ok = /^\+\d{10,15}$/.test(full);
+            return ok ? { ok: true, value: full } : { ok: false, value: full, error: 'Номер должен быть в формате +XXXXXXXXXX (10–15 цифр)' };
+        }
+
+        function validateTelegramOrPhone(raw) {
+            const v = (raw || '').trim();
+            if (!v) return { ok: true, value: '' };
+
+            // 1) Пробуем распознать телефон (E.164): оставляем только цифры, добавляем '+' и проверяем длину
+            let digits = v.replace(/\D/g, '');           // удаляем всё, кроме цифр
+            if (digits.length >= 10 && digits.length <= 15) {
+                const e164 = '+' + digits;
+                if (/^\+\d{10,15}$/.test(e164)) {
+                    return { ok: true, value: e164, type: 'phone' };
+                }
+            }
+
+            // 2) Пробуем распознать @username (Telegram): 5–32, латиница/цифры/_, начинается с буквы
+            const reUser = /^@?[A-Za-z][A-Za-z0-9_]{4,31}$/;
+            if (reUser.test(v)) {
+                const normalized = v.startsWith('@') ? v : '@' + v;
+                return { ok: true, value: normalized, type: 'username' };
+            }
+
+            // 3) Ошибка
+            return {
+                ok: false,
+                value: v,
+                error: 'Введите @username или номер в формате +XXXXXXXXXX (10–15 цифр)'
+            };
+        }
+
+        document.getElementById('apply-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const status = document.getElementById('apply-status');
+            status.style.color = '';
+            status.textContent = '';
+            clearAllErrors(form);
+
+            const fName = document.getElementById('f-name');
+            const fPhone = document.getElementById('f-phone');
+            const fTg = document.getElementById('f-tg');
+
+            const nameVal = (form.name.value || '').trim();
+            if (!nameVal) { setFieldError(fName, 'Укажите имя'); fName.querySelector('input').focus(); return; }
+
+            const phoneRes = validateAndBuildPhone(form.countryCode.value, form.localPhone.value);
+            if (!phoneRes.ok) { setFieldError(fPhone, phoneRes.error); fPhone.querySelector('input,select').focus(); return; }
+
+            const tgRes = validateTelegramOrPhone(form.telegram.value);
+            if (!tgRes.ok) { setFieldError(fTg, tgRes.error); fTg.querySelector('input').focus(); return; }
+
+            const messageVal = (form.msg.value || '').trim();
+            const telegramVal = tgRes.value;
+
+            const body = new URLSearchParams();
+            body.append('name', nameVal);
+            body.append('contact', phoneRes.value);          // телефон (итоговый E.164)
+
+            // Телеграм: шлём и современное, и «наследное» имя, чтобы сервер точно принял
+            body.append('telegram', telegramVal);
+            body.append('contact2', telegramVal);            // ← legacy alias
+
+            // Сообщение: тоже два имени на всякий
+            body.append('msg', messageVal);
+            body.append('message', messageVal);              // ← legacy alias
+
+            body.append('token', (form.token.value || ''));
+            body.append('website', form.elements.website?.value || ''); // honeypot
+
+            // Отладка: покажем, что уходит
+            try {
+                const debugPayload = {};
+                for (const [k, v] of body.entries()) debugPayload[k] = v;
+                console.log('Payload to GAS:', debugPayload);
+            } catch { }
+
+            status.textContent = 'Отправляем...';
+
+            try {
+                const res = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                    body
+                });
+
+                const raw = await res.text();           // ← читаем сырой текст ВСЕГДА
+                console.log('GAS raw response:', raw);  // ← смотрим, что реально пришло
+
+                let data;
+                try {
+                    data = JSON.parse(raw);               // ← пытаемся распарсить JSON
+                } catch (e) {
+                    data = { ok: false, parseError: e.message, raw }; // ← если не JSON, покажем raw
+                }
+
+                if (res.ok && data.ok) {
+                    status.textContent = data.tokenOk ? 'Спасибо! Заявка отправлена.' : 'Заявка принята.';
+                    form.reset();
+                } else {
+                    status.style.color = 'crimson';
+                    status.textContent = 'Не получилось отправить. Попробуйте ещё раз.';
+                    console.error('Fetch not ok or data.ok=false', { http: res.status, data });
+                }
+            } catch (err) {
+                status.style.color = 'crimson';
+                status.textContent = 'Ошибка сети. Повторите позже.';
+                console.error('Network error:', err);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('main section');
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target); // показываем один раз
+                    }
+                });
+            }, {
+                threshold: 0.4 // секция появляется, когда 70% в зоне видимости
+            });
+
+            sections.forEach(sec => observer.observe(sec));
+        });
+    </script>
+
+    <script>
+        (function () {
+            const nav = document.querySelector('.nav');
+            const toggle = document.querySelector('.nav__toggle');
+            const links = document.getElementById('nav-links');
+            if (!nav || !toggle || !links) return;
+
+            // 1) Выставляем корректную высоту шапки в CSS-переменную (debounce через rAF)
+            const setNavH = () => {
+                const h = nav.offsetHeight || 64;
+                document.documentElement.style.setProperty('--nav-h', h + 'px');
+            };
+            let rAF;
+            const onResize = () => {
+                if (rAF) cancelAnimationFrame(rAF);
+                rAF = requestAnimationFrame(setNavH);
+            };
+            setNavH();
+            window.addEventListener('resize', onResize, { passive: true });
+
+            // 2) Открыть/закрыть меню (плюс блокировка скролла body)
+            const openMenu = () => {
+                if (nav.classList.contains('nav--open')) return;
+
+                // фиксируем scroll без "прыжка"
+                const y = window.scrollY || document.documentElement.scrollTop;
+                document.documentElement.style.setProperty('--lock-y', y + 'px');
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${y}px`;
+                document.body.style.width = '100%';
+
+                // даём браузеру один кадр подготовиться и только затем включаем анимацию
+                requestAnimationFrame(() => {
+                    nav.classList.add('nav--open');
+                    document.body.classList.add('menu-open');
+                    toggle.setAttribute('aria-expanded', 'true');
+                });
+            };
+
+            const closeMenu = () => {
+                if (!nav.classList.contains('nav--open')) return;
+
+                nav.classList.remove('nav--open');
+                document.body.classList.remove('menu-open');
+                toggle.setAttribute('aria-expanded', 'false');
+
+                // возвращаем прокрутку туда же
+                const y = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--lock-y')) || 0;
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                window.scrollTo(0, y);
+            };
+            const toggleMenu = () => nav.classList.contains('nav--open') ? closeMenu() : openMenu();
+
+            // 3) Моментальный отклик на таче + клик (без задержки)
+            toggle.addEventListener('touchstart', (e) => { e.preventDefault(); toggleMenu(); }, { passive: false });
+            toggle.addEventListener('click', toggleMenu);
+
+            // 4) Закрытие по клику на ссылку
+            links.addEventListener('click', (e) => {
+                if (e.target.closest('a')) closeMenu();
+            }, { passive: true });
+
+            // 5) Закрытие по Escape
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+            // 6) Клик вне меню на мобильном — закрыть
+            document.addEventListener('click', (e) => {
+                if (window.matchMedia('(max-width:1100px)').matches && nav.classList.contains('nav--open')) {
+                    if (!nav.contains(e.target)) closeMenu();
+                }
+            }, { passive: true });
+
+            // 7) При уходе на десктоп — гарантированно закрываем
+            window.matchMedia('(min-width:1101px)').addEventListener('change', m => { if (m.matches) closeMenu(); });
+        })();
+    </script>
+
+
+</body>
+
+</html>
